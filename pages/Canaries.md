@@ -16,17 +16,23 @@
 			- Uses LiRA and reports low‑FPR metrics, which aligns with current best practices for MIA evaluation and auditing.
 			- The problem framing of optimizing canaries to improve low‑FPR detectability aligns with current best practice for evaluating MIAs is clear.
 			    - ==Michael== We do not evaluate MIAs, we evaluate training procedures.
+			    - We don't propose a new evaluation scheme, we propose a new input
 			- The design is reasonable. The combination of influence‑based pre‑selection with an outer optimization loop is plausible and modular.
 			- The author's aim to make canaries that generalize across architectures echoes cross‑architecture effects seen in poisoning literature and, if validated rigorously, could be useful.
 			    
 			  Weaknesses:  
 			- Even with LiRA and a DP‑SGD sweep, key details are unclear: reference‑model design, loss modeling, global vs. per‑instance thresholding, member prevalence, and confidence intervals (CIs) at very low FPR. Results also omit difficulty calibration, which materially impacts low‑FPR performance.
+			    - Member prevelenace: how many memebers vs non-members
+			        - How likely is a member
+			        - 50:50 prior is ensured
+			        - https://claude.ai/share/5e537b81-261e-41a0-9d0d-ff3410cccd70
 			    - ==TODO== @aernim can you take care of this? ==Michael== Not sure what you mean with 'take care of this'? I have little idea of what the current code is doing.
 			    - ==Michael== Regarding very low FPR regimes, this is the problem of not doing the 20k shadow models evals anymore; wherever we have that, we can argue that the estimates are reasonably accurate, but with the only 2k or however many shadow models, there's not really anything we can say (other than "it's very expensive")
 			    - ==Michael== We could indirectly address a lot of those concerns by also reporting global threshold TPRs for the strongest attack everywhere in the appendix. IIRC, those are close to LiRA TPR, which means calibration etc has a much smaller effect.
 			- The central "third‑party auditing" claim presumes training‑time canary insertion, which external auditors typically lack; label‑only MIAs provide black‑box alternatives and should be a primary comparison.
 			    - This is true and we have already discussed this fact.
 			    - ==TODO== @myaghini  add references to this 
+			    - However it is easier to get access to the full. training prodcuedre. Label only solves a different access problem. 
 			- Missing ablations on candidate pool size, number of canaries, influence e.g. init vs. random, unroll length, attack budget, and transfer under training‑mismatch (optimizer/augmentation/label‑smoothing). Compute/memory budgets and CI reporting at very low FPRs could be more comprehensive.
 			    - Number of canaries: First, the choice to optimize a single canary was by design; and in keeping withe the definition of differential privacy. Second, increasing number of canaries can only increase the power of the attacks. But given the demonstrated effectivness (large TPR@0.1FPR values) with only a single optimized sample, increasing the attack power would have made the granularity of the other design ablations (effect of initalization, and different optimization pardigms) harder to detect.
                 -  influence e.g. init vs. random: This is ablated in Table 4 (in main matter) and more extensively Table 5 (in Aappendix A.4)
@@ -39,7 +45,11 @@
 			- For black‑box, label‑only access (typical for third‑party audits), how does OptiFluence compare to label‑only MIAs at low FPR?
 			    - ==TODO== @aernim can we implement a lable-only MIA? Given the optimization step, I think we cannot pursue a gradient method if we did this. So comparison sounds moot? Or are they asking us to  test optimized canaries in a label-only MIA? This seems counter-productive because of course MIA subsumes label-MIA. So I'm not sure I understand.
 			        - ==Michael== There are different approaches but IMO it strays a bit far from the current setup. For one, I'd already expect the predicted labels to be different for in vs. out with the current optimization procedure. Alternatively, we could e.g. max the hinge score for different labels for in vs. out, etc. And then we could optimize over different e.g. data augmentations etc, which just makes everything more complex (and probably unstable), without really being super interesting. But the main point is that I don't really see why we should care about label-only in our setting in the first place.
+			        - Label only with some rotation and estimate confidences. 
+			        - The method could be extended to produce rotations but out of scope.
+			        - It is out of scope for our threat model but it is trivial to modify optifluence to make label only work. 
 			        - ==Michael== In summary, I would not cater to the label-only thing. But there might be something that I'm not aware of.
+			        - "We only consider a threat model with access to predicted confidences for brevity. However, it is trivial to extend OptiFluence to work in a label-only access model. We are happy to elaborte how if the reviewer is interested."
 			- The authors claim cross‑architecture transfer. How robust is transfer when optimizer, data augmentation, or label‑smoothing differ between the canary‑generating setup and the audited model? A cross‑arch × training‑recipe matrix with CIs would help (poisoning literature often observes sensitivity to training mismatches).
 			    - We thank the reviewer for this question. Indeed the different architectures required different training regimes. WideResNet for example does use label-smoothing, and a different cosine scheduler than the ResNet18 model. Note that this was naturally necessary to achieve acceptable generalization behavior on these models; but importantly, we did not tune the models end-to-end. Such standard model training hyper-paramters were tuned by hand for a single model.
 			    - ==TODO== test with label smoothing ?!
@@ -47,8 +57,10 @@
 			- What are the GPU hours and peak memory required to optimize K canaries on CIFAR‑10, and what would be needed for ImageNet‑scale? How do unroll length and checkpointing frequency affect performance and compute? Please include a cost‑vs‑gain plot.
 			    - The requested experiments are already present in Appendix D and E for a mix of results on MNIST and CIFAR10. See Figure 11 and the discussion in E.8 for the effect of the truncation paramter k. Also CIFAR100 results use on CIFAR100 use (by necessity)
 			        - ==Michael== there seems to be a typo. Also, I think we changed some stuff after submission, so we need to be careful with the word "already"
+			        - Figure 11 is a proxy otherwise we need to run many many evals. No practical difference.
 			- How sensitive are the gains to influence‑based initialization vs. random? To candidate pool size, number of canaries, and attack budget? Please add these ablations to establish which components drive improvements.
 			    - We explore this ablation in Figure 1 rather clearly. In-Distro produces 2.4%, mislableing increases this sligghtly to 3%, High Influence samples increase this to 19.7%. None of these baselines so far are optimized. With the addition of optimization we are able to reach 99.5%. We even include the In-distro+optimization that achies 5.2%. Table 4 expands on this.
+			    - Our attack budget is 1 sample by def. see previous.
 			- The authors report global‑threshold TPR; what member prevalence did you assume, and how sensitive are results to prevalence and to per‑instance thresholds? Could you also provide 95% CIs at 0.1% (and 0.01%) FPR, and assess sensitivity to prevalence and per‑instance thresholds to ensure conclusions are robust across evaluation protocols?
 			    - ==TODO== @aernim I am a bit unsure of the terminology used here. Can you tackle this?
 			    - ==Michael== I am equally unsure lol. I think they mean how many times a canary was member vs. non-member? IIRC it is an equal amount of times; however, this doesn't really matter, b/c we report TRP/FPR and not accuracy (and those values get more accurate somewhat independently with the amount of members/non-members).
@@ -88,8 +100,10 @@ $$ which is exactly the self-influence $I_f(x ; x)=-\nabla_\theta f^{\top} H^{-1
 		      
 			1. I think the transferability bit is a little bit of an overclaim -- it has only been tested on very very small datasets and classification models, which are nothing like the modern models of today. I do think its okay to say that empirical observation is that the canaries transfer, but I would caution against such a bold claim.
                 - ==Michael== I think there's not really much we can do except acknowledge
+                - If we optimize ca canary on unrelated tasks, transferability breaks down conceptually. In a reasonbly related setting, we scale.
 			2. The membership inference test that is used on the canaries in the experiments section is LiRA. It would be interesting to see how the results change with other MIA tests -- and if they get better or worse.
                 - ==Michael== As before, we could include global threshold, which serves as a natural lower bound for other MIAs. Then we have a "bad" MIA in terms of GT, and a very good MIA in terms of LiRA, and we can argue that results for other MIAs likely don't change very much. Which is also a good argument for the generated canaries (they just work)
+                - Even doing the dumbest MIA (global threshold) we get similar results.  TODO Add global threshold.
 
 		- #### Key Questions for Authors
 		    Can you address the questions in the weakness section?  
@@ -122,6 +136,8 @@ $$ which is exactly the self-influence $I_f(x ; x)=-\nabla_\theta f^{\top} H^{-1
 		      
 		    The biggest issue for me right now is the equation in lines 272-274, which seems incorrect to me:  
 		    By definition, we have $$\ell_{priv}(x,y) = f(\theta_{D \cup \{ (x,y) \}}; x, y) - f(\theta_{D}; x, y)$$  
+            
+                - This is a typo. Thanks.
 		    In other words, $\ell_{priv}$ depends on $x$ in two ways: once in the effect it has on the model $\theta$ which is now also trained on $x$ , and a second effect by changing the point at which the trained model is being evaluated.  
 		      
 		    However, the last step of equation 272-274 applies the chain rule, but only with respect to the dependence of $\theta$ on $x$ , and does not take into account the effect that changing $x$ can have on the score by evaluating at a different point.  
@@ -175,6 +191,9 @@ $$ which is exactly the self-influence $I_f(x ; x)=-\nabla_\theta f^{\top} H^{-1
 		    Therefore, on both fronts the paper does not satisfactorily solve the motivation.  
             
             - ==Michael== I think the argument here is something like i) privacy is about worst-case leakage of *any* training sample, ii) we don't know if there are any realistic-looking samples that leak a lot of privacy a-priori, iii) there are results showing that even "natural" samples can have very high privacy leakage (e.g., our CCS paper). The key is: if a training procedure protects the privacy of our "unrealistic" canary, then it will also protect the privacy of the "most vulnerable" "realistic" data point, which may or may not be similarly "attackable" as our canaries.
+            - Just because we are not auditing DP-SGD, the definition of privacy does not change. wE still need to look at the worst case. One needs to define "natural"
+            - The same thing can happen with natural data (Matheew's paper)
+            -
 		      
 		    For DP-SGD auditing the authors mention that due to the computational cost, they can only estimate the epsilon from 20k (or 128 for CIFAR-10) models.  
 		    Have the authors tried running the setup of [a], which seemingly only requires 200 models?  
