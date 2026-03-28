@@ -1,6 +1,6 @@
 ## Rebuttal
 	- ### Response to AkJH
-		- We thank the reviewer for thie
+		- We thank the reviewer for their insightful review, especially the connections made to the poisoning lit
 - ## Reviews
 	- ### Reviewer_AkJH
 		- **Overall Recommendation:** 3
