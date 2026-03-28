@@ -1,6 +1,6 @@
 ## Rebuttal
 	- ### Response to AkJH
-		-
+		- We thank the reviewer for thie
 - ## Reviews
 	- ### Reviewer_AkJH
 		- **Overall Recommendation:** 3
