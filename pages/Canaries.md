@@ -1,6 +1,7 @@
 ## Rebuttal
 	- ### Response to AkJH {{renderer :wordcountchar_}}
 		- We thank the reviewer for their insightful review, especially the connections made to the poisoning literature. We have some clarifications, as well as some clarifying questions that would help us better understand the reviewer's concerns.
+		- **We do not propose a new MIA evaluation or attack.**
 		-
 - ## Reviews
 	- ### Reviewer_AkJH
