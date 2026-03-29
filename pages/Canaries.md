@@ -1,6 +1,7 @@
 ## Rebuttal
 	- ==TODO== Add something about the reported threshold.
 	- ### Response to AkJH {{renderer :wordcountchar_}}
+	  collapsed:: true
 		- We thank the reviewer for their insightful review, especially the connections made to the poisoning literature. We have some clarifications, as well as some clarifying questions that would help us better understand the reviewer's concerns.
 		- **We do not propose a new MIA evaluation or attack.** The canaries that we produce are in the input space, and as a result can be used in any MIA. For evaluation, we adopt Aerni et al. 2024  including code and implementation. Our only contribution to the evaluation is the training loop which is of course necessary.
 		- **MIA Evaluation details not clear.** The shadow models ("reference-model design") are the same architecture except in transferability where the architecture is documented. We are unsure what the reviewer means by "member prevalence" and "difficulty calibration." Following Aerni 2024, we ensure a 50:50 member/non-member split; however unlike that work, since we optimize the canary (and not just select it), there is no additional calibration step at the eval stage. We report the procedure with which our best performing canaries are initialized and optimized (using influence scores and unrolled optimization, respectively). We achieve our confidence intervals by following this procedure using  the most three most influential samples and optimize them (Line 299, second column). Regarding thresholding, we do have global-threshold MIA results; we are happy to report them in the appendix (and a follow-up since space is constrained). The gist of them is that we do not observe a difference in the results, as member and non-member distributions are very distinguishable (See Figure 9for an example).
@@ -23,6 +24,7 @@
 		- We can establish a formal connection between Influence IF-Opt baseline and gradient matching; whose details we are happy to discuss in a future interaction. The key insight is discussed at length in Appendix B (Lines 811–846).
 		-
 		-
+	- Response to Ak
 - ## Reviews
 	- ### Reviewer_AkJH
 		- **Overall Recommendation:** 3
