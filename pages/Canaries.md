@@ -9,7 +9,7 @@
 		  > Auditors can use optimized canaries for privacy reconnaissance: screen many models efficiently by black-box querying (no infrastructure access required **if canary inclusion is mandated**).
 		  
 		  Inclusion can be ensured for example, via a zero-knowledge proof of sampling; but also through contract design and regulatory specification. These aspects fall outside of the scope of this work. Third-party auditing with canaries significantly reduces the access required to the training procedure (and therefore simplifies compliance costs).
-		-
+		- **"Missing ablations."**
 		-
 		-
 - ## Reviews
