@@ -1,13 +1,11 @@
 ## Rebuttal
-	-
+	- ==TODO== Add something about the reported threshold.
 	- ### Response to AkJH {{renderer :wordcountchar_}}
 		- We thank the reviewer for their insightful review, especially the connections made to the poisoning literature. We have some clarifications, as well as some clarifying questions that would help us better understand the reviewer's concerns.
 		- **We do not propose a new MIA evaluation or attack.** The canaries that we produce are in the input space, and as a result can be used in any MIA. For evaluation, we adopt Aerni et al. 2024  including code and implementation. Our only contribution to the evaluation is the training loop which is of course necessary.
-		- **Evaluation details.** The shadow models ("reference-model design") are the same architecture except in transferability where the architecture is documented. Since we optimize exactly one instance, "member prevalence" and "difficulty calibration" are not well-defined as we do select from a subset of canaries. We report the procedure with which our best performing canaries are initialized and optimized (using influence scores and unrolled optimization, respectively). We achieve our confidence intervals by following this procedure using  the most three most influential samples and optimize them (Line 299, second column).
+		- **Evaluation details.** The shadow models ("reference-model design") are the same architecture except in transferability where the architecture is documented. Since we optimize exactly one instance, "member prevalence" and "difficulty calibration" are not well-defined as we do select from a subset of canaries. Following Aerni 202We report the procedure with which our best performing canaries are initialized and optimized (using influence scores and unrolled optimization, respectively). We achieve our confidence intervals by following this procedure using  the most three most influential samples and optimize them (Line 299, second column).
 		-
-			-
-			-
-			-
+		-
 - ## Reviews
 	- ### Reviewer_AkJH
 		- **Overall Recommendation:** 3
