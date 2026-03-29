@@ -15,7 +15,7 @@
 			- unroll length: This is already ablated in Figure 11 (in appendix E.8). We found this factor
 			- attack budget: This is language from poisoning. It is unclear what an attack budget means in the privacy auditing context. We kindly ask the reviewer to elaborate their intention.
 			- Compute/memeory budgets are reported for each step in Table 6.
-		-
+		- **"how does OptiFluence compare to label‑only MIAs at low FPR?"** Label-only MIAs assume
 		-
 - ## Reviews
 	- ### Reviewer_AkJH
