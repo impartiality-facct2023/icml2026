@@ -12,7 +12,7 @@
 		- **"Missing ablations."**
 			- Number of canaries: First, the choice to optimize a single canary was by design; and in keeping withe the definition of differential privacy. Second, increasing number of canaries can only increase the power of the attacks. But given the demonstrated effectiveness (large TPR@0.1FPR values) with only a single optimized sample, increasing the attack power would have made the granularity of the other design ablations (effect of initialization, and different optimization paradigms) harder to detect. Finally, auditing with multiple canaries raises additional questions about the interaction of the canaries with one-another.
 			- influence e.g. init vs. random: This is ablated in Table 4 (in main matter) and more extensively Table 5 (in Aappendix A.4)
-			- unroll length: This is already abalated in Figure 11 (in appendix E.8)
+			- unroll length: This is already ablated in Figure 11 (in appendix E.8). We found this factor
 			- attack budget: This is language from poisoning. It is unclear what an attack budget means in the privacy auditing context. We kindly ask the reviewer to elaborate their intention.
 			- Compute/memeory budgets are reported for each step in Table 6.
 			- ==Michael== For number of canaries, we can also argue with the usual "privacy is a worst-case metric", and then continue with "increasing the power" etc. Alternatively, one could also argue that multiple canaries might have undesirable interactions.
