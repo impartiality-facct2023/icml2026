@@ -15,7 +15,7 @@
 			- unroll length: This is already ablated in Figure 11 (in appendix E.8). We found this factor
 			- attack budget: This is language from poisoning. It is unclear what an attack budget means in the privacy auditing context. We kindly ask the reviewer to elaborate their intention.
 			- Compute/memeory budgets are reported for each step in Table 6.
-		- **"how does OptiFluence compare to label‑only MIAs at low FPR?"** Label-only MIAs assume
+		- **"how does OptiFluence compare to label‑only MIAs at low FPR?"** Can the reviewer elaborate for their expectations? Label
 		-
 - ## Reviews
 	- ### Reviewer_AkJH
@@ -29,6 +29,7 @@
 			- Significance: 2
 			- Originality: 2
 		- #### Strengths and Weaknesses
+		  collapsed:: true
 		    Strengths:
 			- Uses LiRA and reports low‑FPR metrics, which aligns with current best practices for MIA evaluation and auditing.
 			- The problem framing of optimizing canaries to improve low‑FPR detectability aligns with current best practice for evaluating MIAs is clear.
