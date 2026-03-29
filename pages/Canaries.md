@@ -16,8 +16,8 @@
 			- attack budget: This is language from poisoning. It is unclear what an attack budget means in the privacy auditing context. We kindly ask the reviewer to elaborate their intention.
 			- Compute/memeory budgets are reported for each step in Table 6.
 		- **"How does OptiFluence compare to label‑only MIAs at low FPR?"** Can the reviewer elaborate for their expectations? Label-only MIA assumes no access to confidence scores (only predicted labels) This has potential implications for the optimized canary. Does the reviewer want us to re-write the optimization of the canaries with this constraint? or is the ask to run a different MIA than that of Aerni 2024?
-		- The former requires abandoning our gradient-based method and possibly adopt a zero-order optimization (e.g. genetic optimizer etc.). This is an interesting venue for future work but outside of the scope given the extent of engineering  that enable unrolled gradient-based optimization to work.
-		- The latter is
+		- The former requires abandoning our gradient-based method and possibly adopt a zero-order optimization (e.g. genetic optimizer etc.). This is an interesting venue for future work but outside of the scope given the extent of engineering  work we did that enable unrolled gradient-based optimization to work.
+		- The latter requires a re-definition of
 		-
 - ## Reviews
 	- ### Reviewer_AkJH
