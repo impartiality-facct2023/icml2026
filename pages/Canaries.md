@@ -10,6 +10,12 @@
 		  
 		  Inclusion can be ensured for example, via a zero-knowledge proof of sampling; but also through contract design and regulatory specification. These aspects fall outside of the scope of this work. Third-party auditing with canaries significantly reduces the access required to the training procedure (and therefore simplifies compliance costs).
 		- **"Missing ablations."**
+			- Number of canaries: First, the choice to optimize a single canary was by design; and in keeping withe the definition of differential privacy. Second, increasing number of canaries can only increase the power of the attacks. But given the demonstrated effectiveness (large TPR@0.1FPR values) with only a single optimized sample, increasing the attack power would have made the granularity of the other design ablations (effect of initialization, and different optimization paradigms) harder to detect.
+			- influence e.g. init vs. random: This is ablated in Table 4 (in main matter) and more extensively Table 5 (in Aappendix A.4)
+			- unroll length: This is already abalated in Figure 11 (in appendix E.8)
+			- attack budget: This is language from poisoning. It is unclear what an attack budget means in the privacy auditing context. We kindly ask the reviewer to elaborate their intention.
+			- Compute/memeory budgets are reported for each step in Table 6.
+			- ==Michael== For number of canaries, we can also argue with the usual "privacy is a worst-case metric", and then continue with "increasing the power" etc. Alternatively, one could also argue that multiple canaries might have undesirable interactions.
 		-
 		-
 - ## Reviews
@@ -46,7 +52,7 @@
 				- ==TODO== @myaghini  add references to this
 				- However it is easier to get access to the full. training prodcuedre. Label only solves a different access problem.
 			- Missing ablations on candidate pool size, number of canaries, influence e.g. init vs. random, unroll length, attack budget, and transfer under training‑mismatch (optimizer/augmentation/label‑smoothing). Compute/memory budgets and CI reporting at very low FPRs could be more comprehensive.
-				- Number of canaries: First, the choice to optimize a single canary was by design; and in keeping withe the definition of differential privacy. Second, increasing number of canaries can only increase the power of the attacks. But given the demonstrated effectivness (large TPR@0.1FPR values) with only a single optimized sample, increasing the attack power would have made the granularity of the other design ablations (effect of initalization, and different optimization pardigms) harder to detect.
+				- Number of canaries: First, the choice to optimize a single canary was by design; and in keeping withe the definition of differential privacy. Second, increasing number of canaries can only increase the power of the attacks. But given the demonstrated effectiveness (large TPR@0.1FPR values) with only a single optimized sample, increasing the attack power would have made the granularity of the other design ablations (effect of initialization, and different optimization paradigms) harder to detect.
 					- influence e.g. init vs. random: This is ablated in Table 4 (in main matter) and more extensively Table 5 (in Aappendix A.4)
 					- unroll length: This is already abalated in Figure 11 (in appendix E.8)
 					- attack budget: This is language from poisoning. It is unclear what an attack budget means in the privacy auditing context. We kindly ask the reviewer to elaborate their intention.
