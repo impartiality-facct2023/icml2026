@@ -5,7 +5,7 @@
 		- > key details are unclear: reference‑model design, loss modeling, global vs. per‑instance thresholding, member prevalence, and confidence intervals (CIs) at very low FPR. Results also omit difficulty calibration, which materially impacts low‑FPR performance.
 			- The shadow models ("reference-model design") are the same architecture except in transferability where the architecture is documented.
 			- Since we optimize exactly one instance, "member prevalence" is not well-defined as we do select from a subset of canaries. We report the procedure with which our best performing canaries are initialized and optimized (using influence scores and unrolled optimization, respectively)
-			- We achieve our confidence intervals by following this procedure using  the most three most influential samples
+			- We achieve our confidence intervals by following this procedure using  the most three most influential samples and optimize them (this is )
 			-
 - ## Reviews
 	- ### Reviewer_AkJH
