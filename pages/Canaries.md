@@ -87,79 +87,76 @@
 				- ==TODO== @aernim I am a bit unsure of the terminology used here. Can you tackle this?
 				- ==Michael== I am equally unsure lol. I think they mean how many times a canary was member vs. non-member? IIRC it is an equal amount of times; however, this doesn't really matter, b/c we report TRP/FPR and not accuracy (and those values get more accurate somewhat independently with the amount of members/non-members).
 			- Can the authors clarify how their outer objective differs from gradient matching and why it yields canaries that are more detectable at low FPR or more transferable. In addition, please include a comparison between gradient‑matching poisoning and influence‑only baselines (no outer optimization).
-				- Gradient Matching: $$
+				- Gradient Matching: 
+				  $$
 				  \min _{\mathcal{S}} \mathbb{E}_\theta\left[D\left(\nabla_\theta \ell(\theta ; \mathcal{T}), \nabla_\theta \ell(\theta ; \mathcal{S})\right)\right]
 				  $$
-				  
-				             The decision variable is a synthetic dataset $\mathcal{S}$; the objective aligns gradient directions between $\mathcal{S}$ and $\mathcal{T}$ across many parameter configurations.
-				             
-				             Gradient matching asks: *does training on $\mathcal{S}$ produce the same parameter updates as training on $\mathcal{T}$ ?* It optimizes in gradient space directly and does not model what happens to the model after training completes.
-				  
-				             OptiFluence asks: *does including $(x, y)$ in training produce a detectably different model?* The objective is explicitly the log-likelihood ratio $\Lambda(\theta ; x, y)=p\left(\theta \mid Q_{\text {in }}\right) / p\left(\theta \mid Q_{\text {out }}\right)$, approximated via $\ell_{\text {priv }}$. This means the optimization is over **trained model behavior**, not just gradient alignment.
-				  
-				             A subtle but important connection: if one approximates $\theta_{D \cup\{x\}}$ via its first-order influence function expansion, $\theta_{D \cup\{x\}} \approx \theta_D-\frac{1}{N} H^{-1} \nabla_\theta L\left(\theta_D ; x\right)$, then $\ell_{\text {priv }}$ becomes:
-				  
-				             $$
-				  \ell_{\text {priv }}(x) \approx \nabla_\theta f\left(\theta_D ; x\right)^{\top} \cdot\left(-\frac{1}{N} H^{-1} \nabla_\theta L\left(\theta_D ; x\right)\right)
-				  $$ which is exactly the self-influence $I_f(x ; x)=-\nabla_\theta f^{\top} H^{-1} \nabla_\theta L$ from Eq. 9 of the paper. So the IF-Opt baseline of OptiFluence is literally a first-order approximation of gradient matching's inner product, while the full unrolled OptiFluence goes beyond this by propagating gradients through the entire training trajectory. For a more detailed of this connection, please see Appendix B (espcially Lines 811—846).
-				  
-				  - #### Limitations
-				  Yes  
-				  - ### Reviewer_GVKf
-				  - **Overall Recommendation:** 5
-				  - **Confidence:** 4
-				  - #### Summary
-				  Canaries in training data are often used to determine if a trained model is memorizing private information; however normally canaries are selected in ad-hoc ways. This paper provides a very nice method for selecting canaries in a principled manner so that their detection at inference time is maximized.  
-				  
-				  Specifically, this is done by an iterative improvement process where first a model is trained with canaries, and then the canaries are iterated upon to improve a privacy loss; a somewhat surprising result is that the resulting optimized canaries do transfer across architectures.  
-				  - #### Scores
-				  - Soundness: 3
-				  - Presentation: 3
-				  - Significance: 4
-				  - Originality: 4
-				  - #### Strengths and Weaknesses
-				  I really like the paper -- the problem is novel and interesting, and highly relevant and the paper produces a plausible method and tests it out on some reasonable (although small datasets). The following are somewhat minor and fixable issues, but overall I think the paper should be accepted.  
-				  
-				  1. I think the transferability bit is a little bit of an overclaim -- it has only been tested on very very small datasets and classification models, which are nothing like the modern models of today. I do think its okay to say that empirical observation is that the canaries transfer, but I would caution against such a bold claim.
-				         - ==Michael== I think there's not really much we can do except acknowledge
-				         - If we optimize ca canary on unrelated tasks, transferability breaks down conceptually. In a reasonbly related setting, we scale.
-				  2. The membership inference test that is used on the canaries in the experiments section is LiRA. It would be interesting to see how the results change with other MIA tests -- and if they get better or worse.
-				         - ==Michael== As before, we could include global threshold, which serves as a natural lower bound for other MIAs. Then we have a "bad" MIA in terms of GT, and a very good MIA in terms of LiRA, and we can argue that results for other MIAs likely don't change very much. Which is also a good argument for the generated canaries (they just work)
-				         - Even doing the dumbest MIA (global threshold) we get similar results.  TODO Add global threshold.
-				  
-				  - #### Key Questions for Authors
-				  1. Could you better explain the equation in lines 272-274?  
-				  2. I found the logit rescaling step described in lines 188-219 a bit unclear. Could you give some more intuition on why this step is needed / how it affects the results of your experiments?
-				  - ==Michael== We made this discussion clearer now. A general rescaling step is needed for TODO(whatever LiRA paper says; reference that). The replacement of max with LSE was not needed and we removed it for clarity.
-				  - #### Limitations
-				  Yes  
-				  - ### Reviewer_uCYZ
-				  - **Overall Recommendation:** 5
-				  - **Confidence:** 3
-				  - #### Summary
-				  The paper introduces OptiFluence -- an automated method for generating canaries for membership inference attacks on modern ML systems.  
-				  Generating canary attacks is a crucial aspect in the field of privacy, as it can help stress test the privacy guarantees of a training algorithm, and fits into the wider question of whether existing algorithms are more private than their guarantees.  
-				  
-				  Existing approaches rely on basic techniques such as label flipping for an inlier sample, but the authors show that they can get significantly stronger canaries by utilizing influence functions. In keeping with recent advances in the field of data attribution, the authors use an optimized unrolling-based influence function, yielding a good balance of utility and performance.  
-				  
-				  Moreover, the authors show that outlier samples generated for one model and training algorithm transfer to different models and training algorithms, allowing for a wider set of use-cases (e.g., optimizing the canary on a smaller/known architecture and applying the canary for larger or unknown architectures).  
-				  In particular, they are able to use canaries optimized for a non-private training to test the privacy of models trained with DP-SGD.  
-				  - #### Scores
-				  - Soundness: 3
-				  - Presentation: 3
-				  - Significance: 3
-				  - Originality: 3
-				  - #### Strengths and Weaknesses
-				  **Strengths:**  
-				  The submission gives a clear contribution to the field of privacy by introducing a practical method for generating adversarial examples in privately trained neural nets. These methods are tested on a wide variety of architectures across several datasets and the authors also show that canaries optimized in one setting transfer well to new settings.  
-				  
-				  Up to minor comments (listed below), the submission appears sound, well-written, and provides a new approach to a significant problem.  
-				  
-				  **Weaknesses:**  
-				  I think the paper is already strong, but below are a few minor issues.  
-				  
-				  The biggest issue for me right now is the equation in lines 272-274, which seems incorrect to me:  
-				  By definition, we have $$\ell_{priv}(x,y) = f(\theta_{D \cup \{ (x,y) \}}; x, y) - f(\theta_{D}; x, y)$$
+					- The decision variable is a synthetic dataset $\mathcal{S}$; the objective aligns gradient directions between $\mathcal{S}$ and $\mathcal{T}$ across many parameter configurations.
+					- Gradient matching asks: *does training on $\mathcal{S}$ produce the same parameter updates as training on $\mathcal{T}$ ?* It optimizes in gradient space directly and does not model what happens to the model after training completes.
+					- OptiFluence asks: *does including $(x, y)$ in training produce a detectably different model?* The objective is explicitly the log-likelihood ratio $\Lambda(\theta ; x, y)=p\left(\theta \mid Q_{\text {in }}\right) / p\left(\theta \mid Q_{\text {out }}\right)$, approximated via $\ell_{\text {priv }}$. This means the optimization is over **trained model behavior**, not just gradient alignment.
+					- A subtle but important connection: if one approximates $\theta_{D \cup\{x\}}$ via its first-order influence function expansion, $\theta_{D \cup\{x\}} \approx \theta_D-\frac{1}{N} H^{-1} \nabla_\theta L\left(\theta_D ; x\right)$, then $\ell_{\text {priv }}$ becomes:
+					  
+					             $$
+					  \ell_{\text {priv }}(x) \approx \nabla_\theta f\left(\theta_D ; x\right)^{\top} \cdot\left(-\frac{1}{N} H^{-1} \nabla_\theta L\left(\theta_D ; x\right)\right)
+					  $$ which is exactly the self-influence $I_f(x ; x)=-\nabla_\theta f^{\top} H^{-1} \nabla_\theta L$ from Eq. 9 of the paper. So the IF-Opt baseline of OptiFluence is literally a first-order approximation of gradient matching's inner product, while the full unrolled OptiFluence goes beyond this by propagating gradients through the entire training trajectory. For a more detailed of this connection, please see Appendix B (espcially Lines 811—846).
+					  
+					  - #### Limitations
+					  Yes  
+					  - ### Reviewer_GVKf
+					  - **Overall Recommendation:** 5
+					  - **Confidence:** 4
+					  - #### Summary
+					  Canaries in training data are often used to determine if a trained model is memorizing private information; however normally canaries are selected in ad-hoc ways. This paper provides a very nice method for selecting canaries in a principled manner so that their detection at inference time is maximized.  
+					  
+					  Specifically, this is done by an iterative improvement process where first a model is trained with canaries, and then the canaries are iterated upon to improve a privacy loss; a somewhat surprising result is that the resulting optimized canaries do transfer across architectures.  
+					  - #### Scores
+					  - Soundness: 3
+					  - Presentation: 3
+					  - Significance: 4
+					  - Originality: 4
+					  - #### Strengths and Weaknesses
+					  I really like the paper -- the problem is novel and interesting, and highly relevant and the paper produces a plausible method and tests it out on some reasonable (although small datasets). The following are somewhat minor and fixable issues, but overall I think the paper should be accepted.  
+					  
+					  1. I think the transferability bit is a little bit of an overclaim -- it has only been tested on very very small datasets and classification models, which are nothing like the modern models of today. I do think its okay to say that empirical observation is that the canaries transfer, but I would caution against such a bold claim.
+					         - ==Michael== I think there's not really much we can do except acknowledge
+					         - If we optimize ca canary on unrelated tasks, transferability breaks down conceptually. In a reasonbly related setting, we scale.
+					  2. The membership inference test that is used on the canaries in the experiments section is LiRA. It would be interesting to see how the results change with other MIA tests -- and if they get better or worse.
+					         - ==Michael== As before, we could include global threshold, which serves as a natural lower bound for other MIAs. Then we have a "bad" MIA in terms of GT, and a very good MIA in terms of LiRA, and we can argue that results for other MIAs likely don't change very much. Which is also a good argument for the generated canaries (they just work)
+					         - Even doing the dumbest MIA (global threshold) we get similar results.  TODO Add global threshold.
+					  
+					  - #### Key Questions for Authors
+					  1. Could you better explain the equation in lines 272-274?  
+					  2. I found the logit rescaling step described in lines 188-219 a bit unclear. Could you give some more intuition on why this step is needed / how it affects the results of your experiments?
+					  - ==Michael== We made this discussion clearer now. A general rescaling step is needed for TODO(whatever LiRA paper says; reference that). The replacement of max with LSE was not needed and we removed it for clarity.
+					  - #### Limitations
+					  Yes  
+					  - ### Reviewer_uCYZ
+					  - **Overall Recommendation:** 5
+					  - **Confidence:** 3
+					  - #### Summary
+					  The paper introduces OptiFluence -- an automated method for generating canaries for membership inference attacks on modern ML systems.  
+					  Generating canary attacks is a crucial aspect in the field of privacy, as it can help stress test the privacy guarantees of a training algorithm, and fits into the wider question of whether existing algorithms are more private than their guarantees.  
+					  
+					  Existing approaches rely on basic techniques such as label flipping for an inlier sample, but the authors show that they can get significantly stronger canaries by utilizing influence functions. In keeping with recent advances in the field of data attribution, the authors use an optimized unrolling-based influence function, yielding a good balance of utility and performance.  
+					  
+					  Moreover, the authors show that outlier samples generated for one model and training algorithm transfer to different models and training algorithms, allowing for a wider set of use-cases (e.g., optimizing the canary on a smaller/known architecture and applying the canary for larger or unknown architectures).  
+					  In particular, they are able to use canaries optimized for a non-private training to test the privacy of models trained with DP-SGD.  
+					  - #### Scores
+					  - Soundness: 3
+					  - Presentation: 3
+					  - Significance: 3
+					  - Originality: 3
+					  - #### Strengths and Weaknesses
+					  **Strengths:**  
+					  The submission gives a clear contribution to the field of privacy by introducing a practical method for generating adversarial examples in privately trained neural nets. These methods are tested on a wide variety of architectures across several datasets and the authors also show that canaries optimized in one setting transfer well to new settings.  
+					  
+					  Up to minor comments (listed below), the submission appears sound, well-written, and provides a new approach to a significant problem.  
+					  
+					  **Weaknesses:**  
+					  I think the paper is already strong, but below are a few minor issues.  
+					  
+					  The biggest issue for me right now is the equation in lines 272-274, which seems incorrect to me:  
+					  By definition, we have $$\ell_{priv}(x,y) = f(\theta_{D \cup \{ (x,y) \}}; x, y) - f(\theta_{D}; x, y)$$
 					- This is a typo. Thanks.
 					  In other words, $\ell_{priv}$ depends on $x$ in two ways: once in the effect it has on the model $\theta$ which is now also trained on $x$ , and a second effect by changing the point at which the trained model is being evaluated.  
 					  
