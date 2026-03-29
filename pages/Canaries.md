@@ -17,7 +17,7 @@
 			- Compute/memeory budgets are reported for each step in Table 6.
 		- **"How does OptiFluence compare to label‑only MIAs at low FPR?"** Can the reviewer elaborate for their expectations? Label-only MIA assumes no access to confidence scores (only predicted labels) This has potential implications for the optimized canary. Does the reviewer want us to re-write the optimization of the canaries with this constraint? or is the ask to run a different MIA than that of Aerni 2024?
 		- The former requires abandoning our gradient-based method and possibly adopt a zero-order optimization (e.g. genetic optimizer etc.). This is an interesting venue for future work but outside of the scope given the extent of engineering  work we did that enable unrolled gradient-based optimization to work.
-		- The latter requires a re-definition of
+		- **"How robust is transfer when optimizer, data augmentation, or label‑smoothing differ between the canary‑generating setup and the audited model?"**  Based on
 		-
 - ## Reviews
 	- ### Reviewer_AkJH
@@ -63,6 +63,7 @@
 		- #### Key Questions for Authors
 		    Given the strengths, I have the following concerns and clarifying questions aimed at improving the paper:
 			- For black‑box, label‑only access (typical for third‑party audits), how does OptiFluence compare to label‑only MIAs at low FPR?
+			  collapsed:: true
 				- ==TODO== @aernim can we implement a lable-only MIA? Given the optimization step, I think we cannot pursue a gradient method if we did this. So comparison sounds moot? Or are they asking us to  test optimized canaries in a label-only MIA? This seems counter-productive because of course MIA subsumes label-MIA. So I'm not sure I understand.
 					- ==Michael== There are different approaches but IMO it strays a bit far from the current setup. For one, I'd already expect the predicted labels to be different for in vs. out with the current optimization procedure. Alternatively, we could e.g. max the hinge score for different labels for in vs. out, etc. And then we could optimize over different e.g. data augmentations etc, which just makes everything more complex (and probably unstable), without really being super interesting. But the main point is that I don't really see why we should care about label-only in our setting in the first place.
 					- Label only with some rotation and estimate confidences.
