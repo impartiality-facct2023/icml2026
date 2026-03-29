@@ -15,7 +15,6 @@
 			- unroll length: This is already ablated in Figure 11 (in appendix E.8). We found this factor
 			- attack budget: This is language from poisoning. It is unclear what an attack budget means in the privacy auditing context. We kindly ask the reviewer to elaborate their intention.
 			- Compute/memeory budgets are reported for each step in Table 6.
-			- ==Michael== For number of canaries, we can also argue with the usual "privacy is a worst-case metric", and then continue with "increasing the power" etc. Alternatively, one could also argue that multiple canaries might have undesirable interactions.
 		-
 		-
 - ## Reviews
