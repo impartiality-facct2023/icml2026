@@ -3,7 +3,8 @@
 		- We thank the reviewer for their insightful review, especially the connections made to the poisoning literature. We have some clarifications, as well as some clarifying questions that would help us better understand the reviewer's concerns.
 		- **We do not propose a new MIA evaluation or attack.** The canaries that we produce are in the input space, and as a result can be used in any MIA. For evaluation, we adopt Aerni et al. 2024  including code and implementation. Our only contribution to the evaluation is the training loop which is of course necessary.
 		- > key details are unclear: reference‑model design, loss modeling, global vs. per‑instance thresholding, member prevalence, and confidence intervals (CIs) at very low FPR. Results also omit difficulty calibration, which materially impacts low‑FPR performance.
-			- The shadow models ("reference-model design") are the same architecture except in transferability where r
+			- The shadow models ("reference-model design") are the same architecture except in transferability where the architecture is documented.
+			- Since we optimize exactly one instance, we do not optimize MIA thresholding
 - ## Reviews
 	- ### Reviewer_AkJH
 		- **Overall Recommendation:** 3
