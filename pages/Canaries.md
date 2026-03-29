@@ -6,11 +6,9 @@
 		- **MIA Evaluation details not clear.** The shadow models ("reference-model design") are the same architecture except in transferability where the architecture is documented. We are unsure what the reviewer means by "member prevalence" and "difficulty calibration." Following Aerni 2024, we ensure a 50:50 member/non-member split; however unlike that work, since we optimize the canary (and not just select it), there is no additional calibration step at the eval stage. We report the procedure with which our best performing canaries are initialized and optimized (using influence scores and unrolled optimization, respectively). We achieve our confidence intervals by following this procedure using  the most three most influential samples and optimize them (Line 299, second column). Regarding thresholding, we do have global-threshold MIA results; we are happy to report them in the appendix (and a follow-up since space is constrained). The gist of them is that we do not observe a difference in the results, as member and non-member distributions are very distinguishable (See Figure 9for an example).
 		- **Third-Party auditing requires insertion guarantee.** The reviewer is correct that mere existence of optimized canaries is insufficient, as one needs a mechanism to ensure they are indeed included during the training.
 		- We emphasize this in the introduction
-		- > "Auditors can use opti-
-		  mized canaries for privacy reconnaissance: screen many
-		  models efficiently by black-box querying (no infrastruc-
-		  ture access required **if canary inclusion is mandated**)" ). This can be ensured for example, via a zero-knowledge proof of sampling; but also through contract design and regulatory specification. These aspects fall outside of the scope of this work.
-		- Third-party auditing with canaries significantly reduces the access required to the training procedure (and therefore simplifies compliance costs). The contribution of our work is to provide effective canaries.
+		- > Auditors can use optimized canaries for privacy reconnaissance: screen many
+		  models efficiently by black-box querying (no infrastructure access required **if canary inclusion is mandated**)" ).
+		- Inclusion can be ensured for example, via a zero-knowledge proof of sampling; but also through contract design and regulatory specification. These aspects fall outside of the scope of this work. Third-party auditing with canaries significantly reduces the access required to the training procedure (and therefore simplifies compliance costs). Once the minimal requires provide effective canaries.
 		-
 		-
 		-
