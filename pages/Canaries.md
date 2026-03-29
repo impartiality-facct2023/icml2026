@@ -1,7 +1,7 @@
 ## Rebuttal
 	- ### Response to AkJH
 		- TODO Add something about the reported threshold.
-		- ==TODO== Ensure highlighted sections are correct
+		- TODO Ensure highlighted sections are correct
 		- {{renderer :wordcountchar_}}
 		  collapsed:: true
 			- We thank the reviewer for their insightful review, especially the connections made to the poisoning literature. We have some clarifications, as well as some clarifying questions that would help us better understand the reviewer's concerns.
@@ -47,6 +47,7 @@
 	-
 - ## Reviews
 	- ### Reviewer_AkJH
+	  collapsed:: true
 		- **Overall Recommendation:** 3
 		- **Confidence:** 4
 		- #### Summary
