@@ -91,9 +91,9 @@
 		- **Other Membership Inference Attacks.** As noted by other reviewers, threshold-optimized LiRA-type attacks are among the most powerful empirical privacy attacks. We have global-threshold attacks (which are theoretically weaker) which we have added to the appendix and reproduce here:
 		- ==XXXX==
 		- We see no substantial change to our results.
-		- **Derivation of Equation 272–274.** We recognize the
+		- **Derivation of Equation 272–274.** We bel
 		-
-		- Note that the actual implementation is based on autodiff of the loss $\ell_\text{priv}(x,y)$ and thus our empirical results are unaffected.
+		- Regardless, our actual implementation is based on autodiff of the loss $\ell_\text{priv}(x,y)$ and thus our empirical results are unaffected by the gradient formulation (as it is automatically derived).
 		-
 - ## Reviews
 	- ### Reviewer_AkJH
