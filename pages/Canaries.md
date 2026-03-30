@@ -87,7 +87,7 @@
 		-
 	- ### Response to GVKf
 		- **Transferability Claim.** We generally agree with the reviewer and have since adjusted the our claim of transferability to cross-architectural transferability.  We note that prior claims of transferability, in particular of adversarial examples, were made and evaluated under cross-architectural transferability [CITE]. Furthermore, expanded notions of transferability such as cross-task transferability (i.e. If we optimized a canary on one task  and evaluated privacy with a canary on an unrelated task), are conceptually unfounded; regardless of the measured metrics. As for scope of experiments, we note that due to the computational intensity of privacy auditing (which often requires training of many shadow models), the number of datasets and their size are kept small; with many works only reporting exclusively on CIFAR10 and sometimes CIFAR100. [CITE]
-		-
+		- **Membership Inference**
 		-
 - ## Reviews
 	- ### Reviewer_AkJH
@@ -188,7 +188,7 @@
 			- 1. I think the transferability bit is a little bit of an overclaim -- it has only been tested on very very small datasets and classification models, which are nothing like the modern models of today. I do think its okay to say that empirical observation is that the canaries transfer, but I would caution against such a bold claim.
 				- ==Michael== I think there's not really much we can do except acknowledge
 				- If we optimize ca canary on unrelated tasks, transferability breaks down conceptually. In a reasonbly related setting, we scale.
-				  2. The membership inference test that is used on the canaries in the experiments section is LiRA. It would be interesting to see how the results change with other MIA tests -- and if they get better or worse.
+			- 2. The membership inference test that is used on the canaries in the experiments section is LiRA. It would be interesting to see how the results change with other MIA tests -- and if they get better or worse.
 				- ==Michael== As before, we could include global threshold, which serves as a natural lower bound for other MIAs. Then we have a "bad" MIA in terms of GT, and a very good MIA in terms of LiRA, and we can argue that results for other MIAs likely don't change very much. Which is also a good argument for the generated canaries (they just work)
 				- Even doing the dumbest MIA (global threshold) we get similar results.  TODO Add global threshold.
 			- #### Key Questions for Authors
