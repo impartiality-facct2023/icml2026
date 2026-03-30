@@ -103,6 +103,7 @@
 		- **Logit rescaling in Lines 188-219.** We explain two steps in this section: a) logit rescaling and b) Log-Sum-Exp (LSE) trick. The critical step is logit re-scaling which is explained in detail in the original LiRA paper (Carlini et al. 2021). The necessity of this step is best explained in the context of the the hypothesis test and its statistic in Eq.3. LiRA and other empirical measurement of the null and alternative distributions ($Q_\text{in}$ and $Q_\text{out}$) need to assume and fit parametric distributions $\tilde Q_{in}$ and  $\tilde Q_{out}$. The most sample-efficient modeling of these distributions are Gaussians. But, as Figure  4 in Carlini 2021 clearly shows, based on the actual measurements (type of loss used), the output distributions may not be Gaussians. Logit rescaling remedies this situation.
 		- The log-sum-exp trick is simply a computational trick to calculate the LiRA-type  hinge losses more efficiently.  It has no bearing on the correctness of the results (the derivation in Appendix C shows their equivalence.) We have adjusted the main matter text for clarity.
 	- ### Response to uCYZ {{renderer :wordcountchar_}}
+	  collapsed:: true
 		- **Derivation of Equation 272–274.** We believe our derivation is under-explained and has thus created confusion. We apologize for this. Here are Lines 263-245(second col.) re-written. This explains why the second term does not appear explicitly (this has already been amended in the paper):
 		- > Consider the measurement function $f$ (the hinge loss over pre-softmax logits $g$ ), with the canary example $(x,y)$ , where $\theta^{(0)} := \theta^*_D$ denotes the model obtained by training $\theta$ on dataset $D$ until convergence, and $\theta^*_{D \cup {(x,y)}}$ denotes the model obtained by continuing training on $D \cup {(x,y)}$ . Then the privacy loss is defined as
 		  $$\ell_{\mathrm{priv}}(x,y) = f\left(\theta^*_{D \cup {(x,y)}}; x,y\right) - f\left(\theta^*_D; x,y\right).$$   
@@ -245,25 +246,23 @@
 		  
 		  The biggest issue for me right now is the equation in lines 272-274, which seems incorrect to me:  
 		  By definition, we have $$\ell_{priv}(x,y) = f(\theta_{D \cup \{ (x,y) \}}; x, y) - f(\theta_{D}; x, y)$$
-	-
 		- In other words, $\ell_{priv}$ depends on $x$ in two ways: once in the effect it has on the model $\theta$ which is now also trained on $x$ , and a second effect by changing the point at which the trained model is being evaluated.  
 		  
 		  However, the last step of equation 272-274 applies the chain rule, but only with respect to the dependence of $\theta$ on $x$ , and does not take into account the effect that changing $x$ can have on the score by evaluating at a different point.  
 		  
 		  If this equation is used as an approximation, that is fine since the main contribution is the fact that the proposed canaries work well, but if that is the case, it should be clarified that this is an approximation. If more tests can be run to see if using the exact gradient improves performance, that would be ideal.
-			- This is a typo. Thanks.
-		- **Minor Comments**:  
-		  Line 292 "of over" -> either "of" or "over"  
-		  
-		  Line 83 in Related Work:  
-		  "Carline et al. (2019b) and follow-ups".  
-		  In a related works section, it would be good to also cite these follow ups.
-		- #### Key Questions for Authors
-		  1. Could you better explain the equation in lines 272-274?  
-		  2. I found the logit rescaling step described in lines 188-219 a bit unclear. Could you give some more intuition on why this step is needed / how it affects the results of your experiments?
-			- ==Michael== We made this discussion clearer now. A general rescaling step is needed for TODO(whatever LiRA paper says; reference that). The replacement of max with LSE was not needed and we removed it for clarity.
-		- #### Limitations
-		  yes
+			- **Minor Comments**:  
+			  Line 292 "of over" -> either "of" or "over"  
+			  
+			  Line 83 in Related Work:  
+			  "Carline et al. (2019b) and follow-ups".  
+			  In a related works section, it would be good to also cite these follow ups.
+			- #### Key Questions for Authors
+			  1. Could you better explain the equation in lines 272-274?  
+			  2. I found the logit rescaling step described in lines 188-219 a bit unclear. Could you give some more intuition on why this step is needed / how it affects the results of your experiments?
+				- ==Michael== We made this discussion clearer now. A general rescaling step is needed for TODO(whatever LiRA paper says; reference that). The replacement of max with LSE was not needed and we removed it for clarity.
+			- #### Limitations
+			  yes
 	- ### Reviewer_PUwg
 	  collapsed:: true
 		- **Overall Recommendation:** 2
