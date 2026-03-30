@@ -85,6 +85,8 @@
 		- **Related Work.** We thank the reviewer for the additional references. [a] is a white-box audit that manipulates the training algorithm to embed specific triggers in model activations, requiring substantial algorithmic access and thus not comparable to our canaries, which are simply added to the training set. [b] is similarly white-box and adopts a one-run audit; there is a concurrent work that also produces canaries for the one-run setup, to which we do compare (Boglioni et al. 2025, Line 104). We were not aware of [c] and will include it with a note that it focuses on the "final-iterate" setting, meaning privacy leakage when releasing only the final model, as opposed to our DP-SGD setting of releasing every intermediate update.
 		- We believe our response above should addresses the reviewer's questions. We look forward to any remaining questions in the interactions.
 		-
+	-
+	-
 	- TODO Add Global Threshold results
 	- ### Response to GVKf {{renderer :wordcountchar_}}
 	  collapsed:: true
@@ -195,7 +197,6 @@
 						- #### Limitations
 						  Yes
 	- ### Reviewer_GVKf
-	  collapsed:: true
 		- **Overall Recommendation:** 5
 		- **Confidence:** 4
 		- #### Summary
@@ -251,18 +252,18 @@
 		  However, the last step of equation 272-274 applies the chain rule, but only with respect to the dependence of $\theta$ on $x$ , and does not take into account the effect that changing $x$ can have on the score by evaluating at a different point.  
 		  
 		  If this equation is used as an approximation, that is fine since the main contribution is the fact that the proposed canaries work well, but if that is the case, it should be clarified that this is an approximation. If more tests can be run to see if using the exact gradient improves performance, that would be ideal.
-			- **Minor Comments**:  
-			  Line 292 "of over" -> either "of" or "over"  
-			  
-			  Line 83 in Related Work:  
-			  "Carline et al. (2019b) and follow-ups".  
-			  In a related works section, it would be good to also cite these follow ups.
-			- #### Key Questions for Authors
-			  1. Could you better explain the equation in lines 272-274?  
-			  2. I found the logit rescaling step described in lines 188-219 a bit unclear. Could you give some more intuition on why this step is needed / how it affects the results of your experiments?
-				- ==Michael== We made this discussion clearer now. A general rescaling step is needed for TODO(whatever LiRA paper says; reference that). The replacement of max with LSE was not needed and we removed it for clarity.
-			- #### Limitations
-			  yes
+		- **Minor Comments**:  
+		  Line 292 "of over" -> either "of" or "over"  
+		  
+		  Line 83 in Related Work:  
+		  "Carline et al. (2019b) and follow-ups".  
+		  In a related works section, it would be good to also cite these follow ups.
+		- #### Key Questions for Authors
+		  1. Could you better explain the equation in lines 272-274?  
+		  2. I found the logit rescaling step described in lines 188-219 a bit unclear. Could you give some more intuition on why this step is needed / how it affects the results of your experiments?
+			- ==Michael== We made this discussion clearer now. A general rescaling step is needed for TODO(whatever LiRA paper says; reference that). The replacement of max with LSE was not needed and we removed it for clarity.
+		- #### Limitations
+		  yes
 	- ### Reviewer_PUwg
 	  collapsed:: true
 		- **Overall Recommendation:** 2
