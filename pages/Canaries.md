@@ -99,7 +99,7 @@
 		  where $\tfrac{\partial f}{\partial g}$ is the hinge-loss gradient and $\tfrac{\partial g}{\partial \theta^*}$ is the gradient of the canary-class logit, computable via a backward pass. The key difficulty is the term $\tfrac{d\theta^*}{dx}$, since $\theta^*_{D \cup {(x,y)}}$ is implicitly defined. Computing this exactly would require the implicit function theorem.
 		  ...
 		- Regardless, our actual implementation is based on autodiff of the loss $\ell_\text{priv}(x,y)$ and thus our empirical results are unaffected by the gradient formulation (as it is automatically derived).
-		-
+		- **Logit rescaling in Lines 188-219.** We explain two steps in this section. The goal of
 - ## Reviews
 	- ### Reviewer_AkJH
 	  collapsed:: true
