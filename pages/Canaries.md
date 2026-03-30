@@ -93,7 +93,7 @@
 		- We see no substantial change to our results.
 		- **Derivation of Equation 272–274.** We recognize the
 		-
-		- First, the actual implementation is based on autodiff of the loss $\ell_\text{priv}(x,y)$ and thus our empirical results are unaffected.
+		- Note that the actual implementation is based on autodiff of the loss $\ell_\text{priv}(x,y)$ and thus our empirical results are unaffected.
 		-
 - ## Reviews
 	- ### Reviewer_AkJH
