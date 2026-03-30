@@ -65,6 +65,7 @@
 		- **Related Work.** We thank the reviewer for the additional references. [a] is a white-box audit where through the manipulation of the training algorithm, attempts to embed specific trigger in the models' activation. Needless to say, this requires a substantial level of access to the algorithm and as a result is not comparable to our canaries which can be added to the training set. [b] is similarly white-box and also adopts a one-run audit. There is a concurrent work to ours in that it also produce canaries (but for the one-run setup) to which we do compare (  Boglioni et al. 2025, see Line 104). We were not aware of [c], we will include it with a note that it focuses on a heuristic on "final-iterate" setting—that is, privacy leakage of only releasing the final model as opposed to the DP-SGD model of releasing every intermediate update; which is our setting.
 		- We believe we have answered the questions in our response above. If the reviewer feel otherwise, we look forward to answering any remaining questions in the interactions.
 	- ### Response to PUwg Compressed {{renderer :wordcountchar_}}
+	  collapsed:: true
 		- **Motivation for optimized canaries.**
 			- **On the "realism" of optimized canaries.**
 			  Under the DP definition, privacy is a *worst-case* guarantee over *all possible* input records, regardless of resemblance to typical data. The correct question for a privacy audit is not "does the canary look realistic?" but "does it reveal the mechanism's worst-case behavior?"
@@ -82,7 +83,8 @@
 			  The most privacy-sensitive stage is not pre-training (largely public data) but fine-tuning and RLHF, where private or proprietary data is used. While our framework could in principle be adapted, doing so requires novel contributions in canary design and threat modeling for sequential data and is therefore future work.
 			- Regarding canary repetition (Meeus et al., 2025): this is an interesting finding, but speaks to a property of language model memorization rather than a weakness of our auditing framework. The repetition phenomenon further underscores why establishing a rigorous privacy definition for LLMs first is the right order of operations.
 		- **Related Work.** We thank the reviewer for the additional references. [a] is a white-box audit that manipulates the training algorithm to embed specific triggers in model activations, requiring substantial algorithmic access and thus not comparable to our canaries, which are simply added to the training set. [b] is similarly white-box and adopts a one-run audit; there is a concurrent work that also produces canaries for the one-run setup, to which we do compare (Boglioni et al. 2025, Line 104). We were not aware of [c] and will include it with a note that it focuses on the "final-iterate" setting, meaning privacy leakage when releasing only the final model, as opposed to our DP-SGD setting of releasing every intermediate update.
-		- We believe our response above addresses the reviewer's questions. We look forward to any remaining questions in the interactions.
+		- We believe our response above should addresses the reviewer's questions. We look forward to any remaining questions in the interactions.
+	-
 - ## Reviews
 	- ### Reviewer_AkJH
 	  collapsed:: true
