@@ -86,14 +86,14 @@
 		- We believe our response above should addresses the reviewer's questions. We look forward to any remaining questions in the interactions.
 		-
 	- ### Response to GVKf (5) {{renderer :wordcountchar_}}
-	  collapsed:: true
 		- TODO Add Global Threshold results
 		- **Transferability Claim.** We generally agree with the reviewer and have since adjusted the our claim of transferability to cross-architectural transferability.  We note that prior claims of transferability, in particular of adversarial examples, were made and evaluated under cross-architectural transferability [CITE]. Furthermore, expanded notions of transferability such as cross-task transferability (i.e. If we optimized a canary on one task  and evaluated privacy with a canary on an unrelated task), are conceptually unfounded; regardless of the measured metrics. As for scope of experiments, we note that due to the computational intensity of privacy auditing (which often requires training of many shadow models), the number of datasets and their size are kept small; with many works only reporting exclusively on CIFAR10 and sometimes CIFAR100. [CITE]
 		- **Other Membership Inference Attacks.** As noted by other reviewers, threshold-optimized LiRA-type attacks are among the most powerful empirical privacy attacks. We have global-threshold attacks (which are theoretically weaker) which we have added to the appendix and reproduce here:
 		- ==XXXX==
 		- We see no substantial change to our results.
 	- ### Response to uCYZ (5) {{renderer :wordcountchar_}}
-		- We thank the reviewer for their feedback. We are glad
+	  collapsed:: true
+		- We thank the reviewer for their thoughtful evaluation and are glad they found OptiFluence to be a sound, well-written contribution to the privacy field. We appreciate their positive reception of our empirical breadth and transferability results. Below, we address the minor comments raised.
 		- **Derivation of Equation 272–274.** We believe our derivation is under-explained and has thus created confusion. We apologize for this. Here are Lines 263-245(second col.) re-written. This explains why the second term does not appear explicitly (this has already been amended in the paper):
 		- > Consider the measurement function $f$ (the hinge loss over pre-softmax logits $g$), with the canary example $(x,y)$, where $\theta^{(0)} := \theta^*_D$ denotes the model obtained by training $\theta$ on dataset $D$ until convergence, and $\theta^*_{D \cup {(x,y)}}$ denotes the model obtained by continuing training on $D \cup {(x,y)}$. Then the privacy loss is defined as
 		  $$\ell_{\mathrm{priv}}(x,y) = f\left(\theta^*_{D \cup {(x,y)}}; x,y\right) - f\left(\theta^*_D; x,y\right).$$ 
