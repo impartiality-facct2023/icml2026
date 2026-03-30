@@ -180,18 +180,17 @@
 		- Significance: 4
 		- Originality: 4
 		- #### Strengths and Weaknesses
-		  I really like the paper -- the problem is novel and interesting, and highly relevant and the paper produces a plausible method and tests it out on some reasonable (although small datasets). The following are somewhat minor and fixable issues, but overall I think the paper should be accepted.  
-		  
-		  1. I think the transferability bit is a little bit of an overclaim -- it has only been tested on very very small datasets and classification models, which are nothing like the modern models of today. I do think its okay to say that empirical observation is that the canaries transfer, but I would caution against such a bold claim.
-			- ==Michael== I think there's not really much we can do except acknowledge
-			- If we optimize ca canary on unrelated tasks, transferability breaks down conceptually. In a reasonbly related setting, we scale.
-			  2. The membership inference test that is used on the canaries in the experiments section is LiRA. It would be interesting to see how the results change with other MIA tests -- and if they get better or worse.
-			- ==Michael== As before, we could include global threshold, which serves as a natural lower bound for other MIAs. Then we have a "bad" MIA in terms of GT, and a very good MIA in terms of LiRA, and we can argue that results for other MIAs likely don't change very much. Which is also a good argument for the generated canaries (they just work)
-			- Even doing the dumbest MIA (global threshold) we get similar results.  TODO Add global threshold.
-		- #### Key Questions for Authors
-		  1. Could you better explain the equation in lines 272-274?  
-		  2. I found the logit rescaling step described in lines 188-219 a bit unclear. Could you give some more intuition on why this step is needed / how it affects the results of your experiments?
-		- ==Michael== We made this discussion clearer now. A general rescaling step is needed for TODO(whatever LiRA paper says; reference that). The replacement of max with LSE was not needed and we removed it for clarity.
+		  I really like the paper -- the problem is novel and interesting, and highly relevant and the paper produces a plausible method and tests it out on some reasonable (although small datasets). The following are somewhat minor and fixable issues, but overall I think the paper should be accepted.
+			- 1. I think the transferability bit is a little bit of an overclaim -- it has only been tested on very very small datasets and classification models, which are nothing like the modern models of today. I do think its okay to say that empirical observation is that the canaries transfer, but I would caution against such a bold claim.
+				- ==Michael== I think there's not really much we can do except acknowledge
+				- If we optimize ca canary on unrelated tasks, transferability breaks down conceptually. In a reasonbly related setting, we scale.
+				  2. The membership inference test that is used on the canaries in the experiments section is LiRA. It would be interesting to see how the results change with other MIA tests -- and if they get better or worse.
+				- ==Michael== As before, we could include global threshold, which serves as a natural lower bound for other MIAs. Then we have a "bad" MIA in terms of GT, and a very good MIA in terms of LiRA, and we can argue that results for other MIAs likely don't change very much. Which is also a good argument for the generated canaries (they just work)
+				- Even doing the dumbest MIA (global threshold) we get similar results.  TODO Add global threshold.
+			- #### Key Questions for Authors
+			  1. Could you better explain the equation in lines 272-274?  
+			  2. I found the logit rescaling step described in lines 188-219 a bit unclear. Could you give some more intuition on why this step is needed / how it affects the results of your experiments?
+				- ==Michael== We made this discussion clearer now. A general rescaling step is needed for TODO(whatever LiRA paper says; reference that). The replacement of max with LSE was not needed and we removed it for clarity.
 		- #### Limitations
 		  Yes
 	- ### Reviewer_uCYZ
