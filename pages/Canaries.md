@@ -87,7 +87,6 @@
 	-
 - ## Reviews
 	- ### Reviewer_AkJH
-	  collapsed:: true
 		- **Overall Recommendation:** 3
 		- **Confidence:** 4
 		- #### Summary
