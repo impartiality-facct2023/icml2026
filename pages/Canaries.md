@@ -87,6 +87,7 @@
 		-
 	- TODO Add Global Threshold results
 	- ### Response to GVKf {{renderer :wordcountchar_}}
+	  collapsed:: true
 		- **Transferability Claim.** We generally agree with the reviewer and have since adjusted the our claim of transferability to cross-architectural transferability.  We note that prior claims of transferability, in particular of adversarial examples, were made and evaluated under cross-architectural transferability [CITE]. Furthermore, expanded notions of transferability such as cross-task transferability (i.e. If we optimized a canary on one task  and evaluated privacy with a canary on an unrelated task), are conceptually unfounded; regardless of the measured metrics. As for scope of experiments, we note that due to the computational intensity of privacy auditing (which often requires training of many shadow models), the number of datasets and their size are kept small; with many works only reporting exclusively on CIFAR10 and sometimes CIFAR100. [CITE]
 		- **Other Membership Inference Attacks.** As noted by other reviewers, threshold-optimized LiRA-type attacks are among the most powerful empirical privacy attacks. We have global-threshold attacks (which are theoretically weaker) which we have added to the appendix and reproduce here:
 		- ==XXXX==
