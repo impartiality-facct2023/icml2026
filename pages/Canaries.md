@@ -221,7 +221,6 @@
 		- #### Limitations
 		  Yes
 	- ### Reviewer_uCYZ
-	  collapsed:: true
 		- **Overall Recommendation:** 5
 		- **Confidence:** 3
 		- #### Summary
