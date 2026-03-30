@@ -44,8 +44,8 @@
 		- **"How does OptiFluence compare to label-only MIAs at low FPR?"** Can the reviewer elaborate on their expectations? Label-only MIA assumes no access to confidence scores (only predicted labels), which has implications for canary optimization. Does the reviewer want us to re-write the optimization under this constraint, or run a different MIA than Aerni 2024? The former requires abandoning our gradient-based method for zero-order optimization (e.g. genetic optimizer), which is interesting future work but outside scope given the engineering required for unrolled gradient-based optimization.
 		- **"How robust is transfer when optimizer, data augmentation, or label-smoothing differ?"** Based on our experiments, very robust. Different architectures required different training regimes—WideResNet ^^does use label-smoothing^^ and a different cosine scheduler than ResNet18—yet still achieves near-perfect TPR@0.1FPR. Importantly, we did not tune and evaluate models end-to-end; standard hyper-parameters (scheduler, batch size, label-smoothing) were tuned by hand for a single model. We ^^publish all experimental settings^^ and have added an appendix section with the requested hyper-parameter differences table.
 		- **Difference with gradient matching.** Gradient matching asks: does training on $\mathcal{S}$ produce the same parameter updates as training on synthetic $\mathcal{T}$? It optimizes in gradient space and does not model what happens after training completes. OptiFluence asks: *does including $(x, y)$ in training produce a detectably different model?* The objective is explicitly the log-likelihood ratio $\Lambda(\theta ; x, y)=p\left(\theta \mid Q_{\text{in}}\right) / p\left(\theta \mid Q_{\text{out}}\right)$, approximated via $\ell_{\text{priv}}$—optimization is over **trained model behavior**, not just gradient alignment. We can make a formal connection between the IF-Opt baseline (discussed in Appendix A) and gradient matching in a future interaction (if need be), but we empirically found this design to be less effective (see Table 5)
-	- ### Response to PUwg
-		- We thank the reviewer for this important question. We address each concern in turn.
+	- ### Response to PUwg {{renderer :wordcountchar_}}
+		- **Motivation for optimized canaries.** We thank the reviewer for this important question. We address each concern in turn.
 		- **On the "realism" of optimized canaries.**
 		  Under the DP definition, privacy is a *worst-case* guarantee over *all possible* input records, regardless of whether they resemble typical data. The correct question for a privacy audit is therefore not "does the canary look realistic?" but "does the canary reveal the mechanism's worst-case behavior?"
 		- We do not know *a priori* which samples are most privacy-vulnerable. Aerni et al. (2024) show that even natural-looking samples can exhibit very high privacy leakage. If a training procedure protects our optimized canary, it will also protect the most vulnerable realistic data point. Restricting audits to realistic canaries forces one to pre-commit to a data distribution before the audit — potentially missing the true worst case and *underestimating* leakage.
@@ -55,6 +55,7 @@
 		- **[1]** Jagielski et al. (2020). Auditing Differentially Private Machine Learning: How Private Is Private SGD? *NeurIPS 2020*.
 		  **[2]** Balle, Barthe & Gaboardi (2018). Privacy Amplification by Subsampling: Tight Analyses via Couplings and Divergences. *NeurIPS 2018*.
 		  **[3]** Altschuler & Talwar (2022). Privacy of Noisy Stochastic Gradient Descent: More Iterations without More Privacy Loss. *NeurIPS 2022*.
+		-
 - ## Reviews
 	- ### Reviewer_AkJH
 	  collapsed:: true
