@@ -93,7 +93,7 @@
 		- ==XXXX==
 		- We see no substantial change to our results.
 	- ### Response to uCYZ (5) {{renderer :wordcountchar_}}
-		- We thank
+		- We thank the reviewer for their feedback. We are glad
 		- **Derivation of Equation 272–274.** We believe our derivation is under-explained and has thus created confusion. We apologize for this. Here are Lines 263-245(second col.) re-written. This explains why the second term does not appear explicitly (this has already been amended in the paper):
 		- > Consider the measurement function $f$ (the hinge loss over pre-softmax logits $g$), with the canary example $(x,y)$, where $\theta^{(0)} := \theta^*_D$ denotes the model obtained by training $\theta$ on dataset $D$ until convergence, and $\theta^*_{D \cup {(x,y)}}$ denotes the model obtained by continuing training on $D \cup {(x,y)}$. Then the privacy loss is defined as
 		  $$\ell_{\mathrm{priv}}(x,y) = f\left(\theta^*_{D \cup {(x,y)}}; x,y\right) - f\left(\theta^*_D; x,y\right).$$ 
