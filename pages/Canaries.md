@@ -94,15 +94,17 @@
 		- ==XXXX==
 		- We see no substantial change to our results.
 	- ### Response to uCYZ {{renderer :wordcountchar_}}
-	  collapsed:: true
+		-
 		- **Derivation of Equation 272–274.** We believe our derivation is under-explained and has thus created confusion. We apologize for this. Here are Lines 263-245(second col.) re-written. This explains why the second term does not appear explicitly (this has already been amended in the paper):
-		- > Consider the measurement function $f$ (the hinge loss over pre-softmax logits $g$ ), with the canary example $(x,y)$ , where $\theta^{(0)} := \theta^*_D$ denotes the model obtained by training $\theta$ on dataset $D$ until convergence, and $\theta^*_{D \cup {(x,y)}}$ denotes the model obtained by continuing training on $D \cup {(x,y)}$ . Then the privacy loss is defined as
-		  $$\ell_{\mathrm{priv}}(x,y) = f\left(\theta^*_{D \cup {(x,y)}}; x,y\right) - f\left(\theta^*_D; x,y\right).$$   
-		  For an optimization step, we apply the chain rule to each term in the difference. Since $\theta^*_D$ does not depend on $(x,y)$ , expanding $\tfrac{d}{dx}f(\theta^*;x,y)$ yields an explicit term $\tfrac{\partial f}{\partial x}\big|_{\theta^*\text{ fixed}}$ and an implicit term through $\theta^*$ . The explicit term is identical for both $\theta^*_{D\cup{(x,y)}}$ and $\theta^*_D$ and therefore cancels in the difference, while the implicit term vanishes for $\theta^**D$ since it is independent of $x$ . The gradient thus reduces to:
+		- > Consider the measurement function $f$ (the hinge loss over pre-softmax logits $g$), with the canary example $(x,y)$, where $\theta^{(0)} := \theta^*_D$ denotes the model obtained by training $\theta$ on dataset $D$ until convergence, and $\theta^*_{D \cup {(x,y)}}$ denotes the model obtained by continuing training on $D \cup {(x,y)}$. Then the privacy loss is defined as
+		  $$\ell_{\mathrm{priv}}(x,y) = f\left(\theta^*_{D \cup {(x,y)}}; x,y\right) - f\left(\theta^*_D; x,y\right).$$ 
+		  For an optimization step, we apply the chain rule to each term in the difference. Since $\theta^*_D$ does not depend on $(x,y)$, expanding $\tfrac{d}{dx}f(\theta^*;x,y)$ yields an explicit term $\tfrac{\partial f}{\partial x}\big|_{\theta^*\text{ fixed}}$ and an implicit term through $\theta^*$. The explicit term is identical for both $\theta^*_{D\cup{(x,y)}}$ and $\theta^*_D$ and therefore cancels in the difference, while the implicit term vanishes for $\theta^**D$ since it is independent of $x$. The gradient thus reduces to:
 		  $$\nabla_x \ell*{\mathrm{priv}}(x,y) = \frac{df(\theta^*_{D \cup {(x,y)}}; x,y)}{dx} = \frac{\partial f}{\partial g} \cdot \frac{\partial g}{\partial \theta^*} \cdot \frac{d\theta^*}{dx},$$
-		  where $\tfrac{\partial f}{\partial g}$ is the hinge-loss gradient and $\tfrac{\partial g}{\partial \theta^*}$ is the gradient of the canary-class logit, computable via a backward pass. The key difficulty is the term $\tfrac{d\theta^*}{dx}$ , since $\theta^*_{D \cup {(x,y)}}$ is implicitly defined. Computing this exactly would require the implicit function theorem.  
+		  where $\tfrac{\partial f}{\partial g}$ is the hinge-loss gradient and $\tfrac{\partial g}{\partial \theta^*}$ is the gradient of the canary-class logit, computable via a backward pass. The key difficulty is the term $\tfrac{d\theta^*}{dx}$, since $\theta^*_{D \cup {(x,y)}}$ is implicitly defined. Computing this exactly would require the implicit function theorem.
 		  ...
 		- Regardless, our actual implementation is based on autodiff of the loss $\ell_\text{priv}(x,y)$ and thus our empirical results are unaffected by the gradient formulation (as it is automatically derived).
+		- **Logit rescaling in Lines 188-219.** We explain two steps in this section: a) logit rescaling and b) Log-Sum-Exp (LSE) trick. The critical step is logit re-scaling which is explained in detail in the original LiRA paper (Carlini et al. 2021). The necessity of this step is best explained in the context of the the hypothesis test and its statistic in Eq.3. LiRA and other empirical measurement of the null and alternative distributions ($Q_\text{in}$ and $Q_\text{out}$) need to assume and fit parametric distributions $\tilde Q_{in}$ and  $\tilde Q_{out}$. The most sample-efficient modeling of these distributions are Gaussians. But, as Figure  4 in Carlini 2021 clearly shows, based on the actual measurements (type of loss used), the output distributions may not be Gaussians. Logit rescaling remedies this situation.
+		- The log-sum-exp trick is simply a computational trick to calculate the LiRA-type  hinge losses more efficiently.  It has no bearing on the correctness of the results (the derivation in Appendix C shows their equivalence.) We have adjusted the main matter text for clarity.
 - ## Reviews
 	- ### Reviewer_AkJH
 	  collapsed:: true
@@ -186,6 +188,7 @@
 						- #### Limitations
 						  Yes
 	- ### Reviewer_GVKf
+	  collapsed:: true
 		- **Overall Recommendation:** 5
 		- **Confidence:** 4
 		- #### Summary
