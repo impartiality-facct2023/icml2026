@@ -1,5 +1,5 @@
 ## Rebuttal
-	- ### Response to AkJH
+	- ### Response to AkJH (3)
 		- TODO Add something about the reported threshold.
 		- TODO Ensure highlighted sections are correct
 		- {{renderer :wordcountchar_}}
@@ -44,7 +44,7 @@
 		- **"How does OptiFluence compare to label-only MIAs at low FPR?"** Can the reviewer elaborate on their expectations? Label-only MIA assumes no access to confidence scores (only predicted labels), which has implications for canary optimization. Does the reviewer want us to re-write the optimization under this constraint, or run a different MIA than Aerni 2024? The former requires abandoning our gradient-based method for zero-order optimization (e.g. genetic optimizer), which is interesting future work but outside scope given the engineering required for unrolled gradient-based optimization.
 		- **"How robust is transfer when optimizer, data augmentation, or label-smoothing differ?"** Based on our experiments, very robust. Different architectures required different training regimes—WideResNet ^^does use label-smoothing^^ and a different cosine scheduler than ResNet18—yet still achieves near-perfect TPR@0.1FPR. Importantly, we did not tune and evaluate models end-to-end; standard hyper-parameters (scheduler, batch size, label-smoothing) were tuned by hand for a single model. We ^^publish all experimental settings^^ and have added an appendix section with the requested hyper-parameter differences table.
 		- **Difference with gradient matching.** Gradient matching asks: does training on $\mathcal{S}$ produce the same parameter updates as training on synthetic $\mathcal{T}$? It optimizes in gradient space and does not model what happens after training completes. OptiFluence asks: *does including $(x, y)$ in training produce a detectably different model?* The objective is explicitly the log-likelihood ratio $\Lambda(\theta ; x, y)=p\left(\theta \mid Q_{\text{in}}\right) / p\left(\theta \mid Q_{\text{out}}\right)$, approximated via $\ell_{\text{priv}}$—optimization is over **trained model behavior**, not just gradient alignment. We can make a formal connection between the IF-Opt baseline (discussed in Appendix A) and gradient matching in a future interaction (if need be), but we empirically found this design to be less effective (see Table 5)
-	- ### Response to PUwg {{renderer :wordcountchar_}}
+	- ### Response to PUwg (2) {{renderer :wordcountchar_}}
 	  collapsed:: true
 		- **Motivation for optimized canaries.** We thank the reviewer for this important question. We address each concern in turn.
 			- **On the "realism" of optimized canaries.**
@@ -85,16 +85,15 @@
 		- **Related Work.** We thank the reviewer for the additional references. [a] is a white-box audit that manipulates the training algorithm to embed specific triggers in model activations, requiring substantial algorithmic access and thus not comparable to our canaries, which are simply added to the training set. [b] is similarly white-box and adopts a one-run audit; there is a concurrent work that also produces canaries for the one-run setup, to which we do compare (Boglioni et al. 2025, Line 104). We were not aware of [c] and will include it with a note that it focuses on the "final-iterate" setting, meaning privacy leakage when releasing only the final model, as opposed to our DP-SGD setting of releasing every intermediate update.
 		- We believe our response above should addresses the reviewer's questions. We look forward to any remaining questions in the interactions.
 		-
-	-
-	-
-	- TODO Add Global Threshold results
-	- ### Response to GVKf {{renderer :wordcountchar_}}
+	- ### Response to GVKf (5) {{renderer :wordcountchar_}}
+	  collapsed:: true
+		- TODO Add Global Threshold results
 		- **Transferability Claim.** We generally agree with the reviewer and have since adjusted the our claim of transferability to cross-architectural transferability.  We note that prior claims of transferability, in particular of adversarial examples, were made and evaluated under cross-architectural transferability [CITE]. Furthermore, expanded notions of transferability such as cross-task transferability (i.e. If we optimized a canary on one task  and evaluated privacy with a canary on an unrelated task), are conceptually unfounded; regardless of the measured metrics. As for scope of experiments, we note that due to the computational intensity of privacy auditing (which often requires training of many shadow models), the number of datasets and their size are kept small; with many works only reporting exclusively on CIFAR10 and sometimes CIFAR100. [CITE]
 		- **Other Membership Inference Attacks.** As noted by other reviewers, threshold-optimized LiRA-type attacks are among the most powerful empirical privacy attacks. We have global-threshold attacks (which are theoretically weaker) which we have added to the appendix and reproduce here:
 		- ==XXXX==
 		- We see no substantial change to our results.
-	- ### Response to uCYZ {{renderer :wordcountchar_}}
-		-
+	- ### Response to uCYZ (5) {{renderer :wordcountchar_}}
+		- We thank
 		- **Derivation of Equation 272–274.** We believe our derivation is under-explained and has thus created confusion. We apologize for this. Here are Lines 263-245(second col.) re-written. This explains why the second term does not appear explicitly (this has already been amended in the paper):
 		- > Consider the measurement function $f$ (the hinge loss over pre-softmax logits $g$), with the canary example $(x,y)$, where $\theta^{(0)} := \theta^*_D$ denotes the model obtained by training $\theta$ on dataset $D$ until convergence, and $\theta^*_{D \cup {(x,y)}}$ denotes the model obtained by continuing training on $D \cup {(x,y)}$. Then the privacy loss is defined as
 		  $$\ell_{\mathrm{priv}}(x,y) = f\left(\theta^*_{D \cup {(x,y)}}; x,y\right) - f\left(\theta^*_D; x,y\right).$$ 
