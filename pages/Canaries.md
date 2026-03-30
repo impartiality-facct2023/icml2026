@@ -86,7 +86,7 @@
 		- We believe our response above should addresses the reviewer's questions. We look forward to any remaining questions in the interactions.
 		-
 	- ### Response to GVKf
-		- **Transferability Claim.** We generally agree with the reviewer and have since adjusted the our claim of transferability to cross-architectural transferability.  We note that prior claims of transferability [], in particular of adversarial examples, were made and evaluated under similar conditions [CITE].
+		- **Transferability Claim.** We generally agree with the reviewer and have since adjusted the our claim of transferability to cross-architectural transferability.  We note that prior claims of transferability [], in particular of adversarial examples, were made and evaluated under similar conditions [CITE]. Furthermore, we believe further claims of transferability
 - ## Reviews
 	- ### Reviewer_AkJH
 	  collapsed:: true
