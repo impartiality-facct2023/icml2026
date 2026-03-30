@@ -100,7 +100,7 @@
 		  ...
 		- Regardless, our actual implementation is based on autodiff of the loss $\ell_\text{priv}(x,y)$ and thus our empirical results are unaffected by the gradient formulation (as it is automatically derived).
 		- **Logit rescaling in Lines 188-219.** We explain two steps in this section: a) logit rescaling and b) Log-Sum-Exp (LSE) trick. The critical step is logit re-scaling which is explained in detail in the original LiRA paper (Carlini et al. 2021). The necessity of this step is best explained in the context of the the hypothesis test and its statistic in Eq.3. LiRA and other empirical measurement of the null and alternative distributions ($Q_\text{in}$ and $Q_\text{out}$) need to assume and fit parametric distributions $\tilde Q_{in}$ and  $\tilde Q_{out}$. The most sample-efficient modeling of these distributions are Gaussians. But, as Figure  4 in Carlini 2021 clearly shows, based on the actual measurements (type of loss used), the output distributions may not be Gaussians. Logit rescaling remedies this situation.
-		- The log-sum-exp trick is saim
+		- The log-sum-exp trick is simply a computational trick to calculate the LiRA-type  hinge losses more efficiently.  It has no bearing on the correctness of the results (the derivation in  )
 - ## Reviews
 	- ### Reviewer_AkJH
 	  collapsed:: true
