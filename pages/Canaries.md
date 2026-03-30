@@ -63,7 +63,7 @@
 			- **On where privacy leakage in LLMs actually matters.**
 			  The most privacy-sensitive stage of LLM training is not pre-training (which operates on largely public internet data) but fine-tuning and RLHF, where potentially private or proprietary data is used. While our framework could in principle be adapted to such settings, doing so requires novel contributions in canary design and threat modeling for sequential data, and is therefore future work.
 			- Finally, regarding the reviewer's point about canary repetition (Meeus et al., 2025): we agree this is an interesting finding, but it speaks to a property of language model memorization rather than to a weakness of our auditing framework. Our work focuses on settings where a rigorous privacy definition exists, and the repetition phenomenon further underscores why establishing such a definition for LLMs first is the right order of operations.
-		- **Related Work.** We thank the reviewer for the additional references. [a] is a white-box audit that by meticulus construction, and through the manipulation of the training algorithm, to produce a specific trigger in a models' activations
+		- **Related Work.** We thank the reviewer for the additional references. [a] is a white-box audit that by meticulous construction, and through the manipulation of the training algorithm, attempts to embed specific trigger in the models' activation. Needless to say, this requires a substantial level of access to the algorithm
 - ## Reviews
 	- ### Reviewer_AkJH
 	  collapsed:: true
