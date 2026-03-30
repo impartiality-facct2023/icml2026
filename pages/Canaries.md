@@ -86,7 +86,7 @@
 		- We believe our response above should addresses the reviewer's questions. We look forward to any remaining questions in the interactions.
 		-
 	- ### Response to GVKf
-		-
+		- **Transferability Claim.** We generally agree with the reviewer.
 - ## Reviews
 	- ### Reviewer_AkJH
 	  collapsed:: true
