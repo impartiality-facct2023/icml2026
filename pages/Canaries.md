@@ -56,8 +56,7 @@
 			- **[1]** Jagielski et al. (2020). Auditing Differentially Private Machine Learning: How Private Is Private SGD? *NeurIPS 2020*.
 			  **[2]** Balle, Barthe & Gaboardi (2018). Privacy Amplification by Subsampling: Tight Analyses via Couplings and Divergences. *NeurIPS 2018*.
 			  **[3]** Altschuler & Talwar (2022). Privacy of Noisy Stochastic Gradient Descent: More Iterations without More Privacy Loss. *NeurIPS 2022*.
-		- **Breadth of Results. LLM Auditing.** The omission is intentional, and we believe the reasons are worth elaborating.
-		  collapsed:: true
+		- **Breadth of Results. What about LLM Auditing?** The omission is intentional, and we believe the reasons are worth elaborating.
 			- **On the lack of an agreed-upon privacy definition for language models.**
 			  Extending privacy auditing to language models is non-trivial, and the core obstacle is definitional rather than technical. Unlike image classification, where the database-level DP definition maps cleanly onto training, there is no broadly agreed-upon privacy definition for sequence-to-sequence models. Existing works largely adopt whichever definition is implied by the training algorithm (e.g., DP-SGD or PATE), which leads to canary designs that are trivially performant by construction. For instance, injecting a special trigger token or a sequence of random tokens that only the canary can elicit does not constitute a meaningful privacy audit; it merely measures sensitivity to the canary by design. We believe that establishing a principled privacy definition for LLMs is a prerequisite for meaningful auditing, and consider this an important open problem outside the scope of the current work.
 			- **On where privacy leakage in LLMs actually matters.**
