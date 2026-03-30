@@ -197,6 +197,7 @@
 						- #### Limitations
 						  Yes
 	- ### Reviewer_GVKf
+	  collapsed:: true
 		- **Overall Recommendation:** 5
 		- **Confidence:** 4
 		- #### Summary
@@ -223,6 +224,7 @@
 		- #### Limitations
 		  Yes
 	- ### Reviewer_uCYZ
+	  collapsed:: true
 		- **Overall Recommendation:** 5
 		- **Confidence:** 3
 		- #### Summary
