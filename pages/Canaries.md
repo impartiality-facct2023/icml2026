@@ -85,9 +85,10 @@
 		- **Related Work.** We thank the reviewer for the additional references. [a] is a white-box audit that manipulates the training algorithm to embed specific triggers in model activations, requiring substantial algorithmic access and thus not comparable to our canaries, which are simply added to the training set. [b] is similarly white-box and adopts a one-run audit; there is a concurrent work that also produces canaries for the one-run setup, to which we do compare (Boglioni et al. 2025, Line 104). We were not aware of [c] and will include it with a note that it focuses on the "final-iterate" setting, meaning privacy leakage when releasing only the final model, as opposed to our DP-SGD setting of releasing every intermediate update.
 		- We believe our response above should addresses the reviewer's questions. We look forward to any remaining questions in the interactions.
 		-
+	- TODO Add Global Threshold results
 	- ### Response to GVKf
 		- **Transferability Claim.** We generally agree with the reviewer and have since adjusted the our claim of transferability to cross-architectural transferability.  We note that prior claims of transferability, in particular of adversarial examples, were made and evaluated under cross-architectural transferability [CITE]. Furthermore, expanded notions of transferability such as cross-task transferability (i.e. If we optimized a canary on one task  and evaluated privacy with a canary on an unrelated task), are conceptually unfounded; regardless of the measured metrics. As for scope of experiments, we note that due to the computational intensity of privacy auditing (which often requires training of many shadow models), the number of datasets and their size are kept small; with many works only reporting exclusively on CIFAR10 and sometimes CIFAR100. [CITE]
-		- **Other Membership Inference Attacks.** As noted by other reviewers, LiRA-type attacks are am
+		- **Other Membership Inference Attacks.** As noted by other reviewers, LiRA-type attacks are among the most powerful empirical privacy attacks. In response to similar comments
 		-
 - ## Reviews
 	- ### Reviewer_AkJH
