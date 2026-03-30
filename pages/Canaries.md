@@ -210,29 +210,27 @@
 		- Significance: 3
 		- Originality: 3
 		- #### Strengths and Weaknesses
-		  **Strengths:**  
-		  The submission gives a clear contribution to the field of privacy by introducing a practical method for generating adversarial examples in privately trained neural nets. These methods are tested on a wide variety of architectures across several datasets and the authors also show that canaries optimized in one setting transfer well to new settings.  
-		  
-		  Up to minor comments (listed below), the submission appears sound, well-written, and provides a new approach to a significant problem.  
-		  
-		  **Weaknesses:**  
+		- **Strengths:**
+			- The submission gives a clear contribution to the field of privacy by introducing a practical method for generating adversarial examples in privately trained neural nets. These methods are tested on a wide variety of architectures across several datasets and the authors also show that canaries optimized in one setting transfer well to new settings.
+			- Up to minor comments (listed below), the submission appears sound, well-written, and provides a new approach to a significant problem.
+		- **Weaknesses:**  
 		  I think the paper is already strong, but below are a few minor issues.  
 		  
 		  The biggest issue for me right now is the equation in lines 272-274, which seems incorrect to me:  
 		  By definition, we have $$\ell_{priv}(x,y) = f(\theta_{D \cup \{ (x,y) \}}; x, y) - f(\theta_{D}; x, y)$$
-	- This is a typo. Thanks.
-	  In other words, $\ell_{priv}$ depends on $x$ in two ways: once in the effect it has on the model $\theta$ which is now also trained on $x$ , and a second effect by changing the point at which the trained model is being evaluated.  
-	  
-	  However, the last step of equation 272-274 applies the chain rule, but only with respect to the dependence of $\theta$ on $x$ , and does not take into account the effect that changing $x$ can have on the score by evaluating at a different point.  
-	  
-	  If this equation is used as an approximation, that is fine since the main contribution is the fact that the proposed canaries work well, but if that is the case, it should be clarified that this is an approximation. If more tests can be run to see if using the exact gradient improves performance, that would be ideal.  
-	  
-	  **Minor Comments**:  
-	  Line 292 "of over" -> either "of" or "over"  
-	  
-	  Line 83 in Related Work:  
-	  "Carline et al. (2019b) and follow-ups".  
-	  In a related works section, it would be good to also cite these follow ups.
+	-
+		- In other words, $\ell_{priv}$ depends on $x$ in two ways: once in the effect it has on the model $\theta$ which is now also trained on $x$ , and a second effect by changing the point at which the trained model is being evaluated.  
+		  
+		  However, the last step of equation 272-274 applies the chain rule, but only with respect to the dependence of $\theta$ on $x$ , and does not take into account the effect that changing $x$ can have on the score by evaluating at a different point.  
+		  
+		  If this equation is used as an approximation, that is fine since the main contribution is the fact that the proposed canaries work well, but if that is the case, it should be clarified that this is an approximation. If more tests can be run to see if using the exact gradient improves performance, that would be ideal.
+			- This is a typo. Thanks.
+		- **Minor Comments**:  
+		  Line 292 "of over" -> either "of" or "over"  
+		  
+		  Line 83 in Related Work:  
+		  "Carline et al. (2019b) and follow-ups".  
+		  In a related works section, it would be good to also cite these follow ups.
 		- #### Key Questions for Authors
 		  1. Could you better explain the equation in lines 272-274?  
 		  2. I found the logit rescaling step described in lines 188-219 a bit unclear. Could you give some more intuition on why this step is needed / how it affects the results of your experiments?
@@ -240,6 +238,7 @@
 		- #### Limitations
 		  yes
 	- ### Reviewer_PUwg
+	  collapsed:: true
 		- **Overall Recommendation:** 2
 		- **Confidence:** 4
 		- #### Summary
